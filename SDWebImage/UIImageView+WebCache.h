@@ -193,12 +193,12 @@
  *                       The fourth parameter is the original image url.
  *
  */
-- (void)sd_setImageWithTwoURLs:(nullable NSURL *)firstURL
-                     secondURL:(nullable NSURL *)secondURL
-              placeholderImage:(nullable UIImage *)placeholder
-                       options:(SDWebImageOptions)options
-                      progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                     completed:(nullable SDExternalCompletionBlock)completedBlock;
+- (void)sd_setImageWithTwoStepsLoading:(nullable NSURL *)firstURL
+                             secondURL:(nullable NSURL *)secondURL
+                      placeholderImage:(nullable UIImage *)placeholder
+                               options:(SDWebImageOptions)options
+                              progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
+                             completed:(nullable SDExternalCompletionBlock)completedBlock;
 
 #if SD_UIKIT
 

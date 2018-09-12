@@ -62,12 +62,12 @@
     [self sd_setImageWithURL:url placeholderImage:lastPreviousCachedImage ?: placeholder options:options progress:progressBlock completed:completedBlock];    
 }
 
-- (void)sd_setImageWithTwoURLs:(nullable NSURL *)firstURL
-                     secondURL:(nullable NSURL *)secondURL
-              placeholderImage:(nullable UIImage *)placeholder
-                       options:(SDWebImageOptions)options
-                      progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
-                     completed:(nullable SDExternalCompletionBlock)completedBlock {
+- (void)sd_setImageWithTwoStepsLoading:(nullable NSURL *)firstURL
+                             secondURL:(nullable NSURL *)secondURL
+                      placeholderImage:(nullable UIImage *)placeholder
+                               options:(SDWebImageOptions)options
+                              progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
+                             completed:(nullable SDExternalCompletionBlock)completedBlock {
     self.image = placeholder;
     
     NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:secondURL];
