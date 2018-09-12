@@ -88,7 +88,7 @@
         if (!sself) return;
         dispatch_main_async_safe(^{
             if (image) {
-                return [self sd_internalSetImageWithURL:secondURL
+                return [sself sd_internalSetImageWithURL:secondURL
                                        placeholderImage:image
                                                 options:options
                                            operationKey:nil
