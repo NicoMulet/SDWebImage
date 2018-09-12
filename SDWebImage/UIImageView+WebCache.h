@@ -175,6 +175,31 @@
                                          progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                                         completed:(nullable SDExternalCompletionBlock)completedBlock __deprecated_msg("This method is misunderstanding and deprecated, consider using `SDWebImageQueryDiskSync` options with `sd_setImageWithURL:` instead");
 
+/**
+ * Set the imageView `image` with two `urls`, placeholder and custom options. Images are download one after the other.
+ *
+ * The download is asynchronous and cached.
+ *
+ * @param firstURL          The url for the first image.
+ * @param secondURL         The url for the second image, if this image is found in cache, use it.
+ * @param placeholder       The image to be set initially, until the image request finishes or the second image is found in cache.
+ * @param options        The options to use when downloading the image. @see SDWebImageOptions for the possible values.
+ * @param progressBlock  A block called while image is downloading
+ *                       @note the progress block is executed on a background queue
+ * @param completedBlock A block called when operation has been completed. This block has no return value
+ *                       and takes the requested UIImage as first parameter. In case of error the image parameter
+ *                       is nil and the second parameter may contain an NSError. The third parameter is a Boolean
+ *                       indicating if the image was retrieved from the local cache or from the network.
+ *                       The fourth parameter is the original image url.
+ *
+ */
+- (void)sd_setImageWithTwoURLs:(nullable NSURL *)firstURL
+                     secondURL:(nullable NSURL *)secondURL
+              placeholderImage:(nullable UIImage *)placeholder
+                       options:(SDWebImageOptions)options
+                      progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
+                     completed:(nullable SDExternalCompletionBlock)completedBlock;
+
 #if SD_UIKIT
 
 #pragma mark - Animation of multiple images

@@ -62,6 +62,43 @@
     [self sd_setImageWithURL:url placeholderImage:lastPreviousCachedImage ?: placeholder options:options progress:progressBlock completed:completedBlock];    
 }
 
+- (void)sd_setImageWithTwoURLs:(nullable NSURL *)firstURL
+                     secondURL:(nullable NSURL *)secondURL
+              placeholderImage:(nullable UIImage *)placeholder
+                       options:(SDWebImageOptions)options
+                      progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
+                     completed:(nullable SDExternalCompletionBlock)completedBlock {
+    self.image = placeholder;
+    
+    NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:secondURL];
+    UIImage *lastPreviousCachedImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:key];
+    
+    if (lastPreviousCachedImage) {
+        return [self sd_internalSetImageWithURL:secondURL
+                               placeholderImage:lastPreviousCachedImage
+                                        options:options
+                                   operationKey:nil
+                                  setImageBlock:nil
+                                       progress:progressBlock
+                                      completed:completedBlock];
+    }
+    
+    [[SDWebImageManager sharedManager] loadImageWithURL:firstURL options:options progress:nil completed:^(UIImage *image, NSData *data, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        __strong typeof(self) sself = self;
+        if (!sself) return;
+        dispatch_main_async_safe(^{
+            if (image) {
+                return [self sd_internalSetImageWithURL:secondURL
+                                       placeholderImage:image
+                                                options:options
+                                           operationKey:nil
+                                          setImageBlock:nil
+                                               progress:progressBlock completed:completedBlock];
+            }
+        });
+    }];
+}
+
 #if SD_UIKIT
 
 #pragma mark - Animation of multiple images
