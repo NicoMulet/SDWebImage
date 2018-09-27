@@ -81,6 +81,7 @@
                                   setImageBlock:nil
                                        progress:progressBlock
                                       completed:completedBlock];
+        // Test
     }
     
     [[SDWebImageManager sharedManager] loadImageWithURL:firstURL options:options progress:nil completed:^(UIImage *image, NSData *data, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
